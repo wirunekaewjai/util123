@@ -1,15 +1,18 @@
 use actix_web::{get, HttpRequest, HttpResponse};
 use mime::TEXT_HTML;
 
-use crate::{functions::create_etag_response, views};
+use crate::{
+    functions::create_etag_response,
+    views::{self, icons, pages},
+};
 
 #[get("/utils/base64")]
 pub async fn handle(req: HttpRequest) -> HttpResponse {
     let items = vec![
         //
         views::topbar(),
-        views::heading(&views::icons::icon_codecompare(), "Base64 Encode / Decode"),
-        views::pages::base64(),
+        views::heading(icons::codecompare(), "Base64 Encode / Decode"),
+        pages::base64(),
     ];
 
     let html = views::doc("Utility 123", items);

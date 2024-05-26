@@ -1,9 +1,11 @@
-mod icon_codecompare;
-mod icon_hashtag;
-mod icon_list;
-mod icon_qrcode;
+mod codecompare;
+mod hashtag;
+mod home;
+mod list;
+mod qrcode;
 
-pub use icon_codecompare::*;
-pub use icon_hashtag::*;
-pub use icon_list::*;
-pub use icon_qrcode::*;
+pub use codecompare::*;
+pub use hashtag::*;
+pub use home::*;
+pub use list::*;
+pub use qrcode::*;

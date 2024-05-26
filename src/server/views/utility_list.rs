@@ -1,5 +1,6 @@
-// AUTO GENERATED
-use tiny_tsx::tsx_map;
+use html_to_string_macro::html;
+
+use crate::functions;
 
 pub struct UtilityListItem {
     pub id: String,
@@ -7,37 +8,23 @@ pub struct UtilityListItem {
     pub name: String,
 }
 
-pub fn utility_list(items: Vec<UtilityListItem>) -> String {
-    return format!(
-        r#"<div class="space-y-2 divide-y" hx-boost="true">{}</div>"#,
-        tsx_map(&items, &|item| format!(
-            r#"<a class="hover:text-blue-400 grid grid-cols-[16px_1fr] gap-x-4 px-4 py-2 items-center" href="/utils/{}">{}{}</a>"#,
-            item.id, item.icon, item.name
-        ))
+pub fn utility_list(items: Vec<(&str, String, &str)>) -> String {
+    return html!(
+        <div
+            class="space-y-2 divide-y"
+            hx-boost="true"
+        >
+            {
+                functions::map(&items, &|(id, icon, name)| html!(
+                    <a
+                        class="hover:text-blue-400 grid grid-cols-[16px_1fr] gap-x-4 px-4 py-2 items-center"
+                        href={format!("/utils/{}", id)}
+                    >
+                        {icon}
+                        {name}
+                    </a>
+                ))
+            }
+        </div>
     );
 }
-
-/*
-interface Item {
-  id: string;
-  icon: string;
-  name: string;
-}
-
-(items: Item[]) => (
-  <div
-    class="space-y-2 divide-y"
-    hx-boost="true"
-  >
-    {map(items, (item) => (
-      <a
-        class="hover:text-blue-400 grid grid-cols-[16px_1fr] gap-x-4 px-4 py-2 items-center"
-        href={`/utils/${item.id}`}
-      >
-        {item.icon}
-        {item.name}
-      </a>
-    ))}
-  </div>
-);
-*/
