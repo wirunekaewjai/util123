@@ -16,9 +16,7 @@ pub fn qrcode() -> String {
                     hx-trigger="input changed delay:500ms"
                     hx-target="#qrcode"
                     hx-swap="innerHTML"
-                >
-
-                </textarea>
+                />
             </div>
             <hr />
             <div class="p-4 space-y-2">

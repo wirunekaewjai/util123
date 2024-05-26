@@ -12,7 +12,7 @@ pub fn sha() -> String {
                     name="input1"
                     placeholder="Input"
                     rows={3}
-                    hx-get="/@sha1?id=input1"
+                    hx-get="/@sha?type=1&id=input1"
                     hx-trigger="input changed delay:50ms"
                     hx-target="#output1"
                     hx-swap="innerHTML"
@@ -38,7 +38,7 @@ pub fn sha() -> String {
                     name="input2"
                     placeholder="Input"
                     rows={3}
-                    hx-get="/@sha256?id=input2"
+                    hx-get="/@sha?type=256&id=input2"
                     hx-trigger="input changed delay:50ms"
                     hx-target="#output2"
                     hx-swap="innerHTML"
@@ -64,7 +64,7 @@ pub fn sha() -> String {
                     name="input3"
                     placeholder="Input"
                     rows={3}
-                    hx-get="/@sha512?id=input3"
+                    hx-get="/@sha?type=512&id=input3"
                     hx-trigger="input changed delay:50ms"
                     hx-target="#output3"
                     hx-swap="innerHTML"

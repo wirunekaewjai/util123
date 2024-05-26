@@ -16,28 +16,12 @@ interceptor.add("/@qrcode", async ({ query }) => {
   }
 });
 
-interceptor.add("/@sha1", async ({ query }) => {
+interceptor.add("/@sha", async ({ query }) => {
   const id = query.id;
   const input = query[id];
-  const output = await sha(1, input);
+  const type = Number(query.type) as 1 | 256 | 512;
 
-  return output;
-});
-
-interceptor.add("/@sha256", async ({ query }) => {
-  const id = query.id;
-  const input = query[id];
-  const output = await sha(256, input);
-
-  return output;
-});
-
-interceptor.add("/@sha512", async ({ query }) => {
-  const id = query.id;
-  const input = query[id];
-  const output = await sha(512, input);
-
-  return output;
+  return await sha(type, input);
 });
 
 interceptor.add("/@base64-encode", async ({ query }) => {
