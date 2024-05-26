@@ -1,0 +1,25 @@
+{
+  "name": "util123",
+  "version": "0.0.1",
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "dev": "bun src/bin/dev.ts",
+    "deploy": "bun run build && fly deploy",
+    "build": "NODE_ENV=production bun src/bin/build.ts",
+    "start": "cargo run --release"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/qrcode": "^1.5.5",
+    "@wirunekaewjai/tiny-tsx": "github:wirunekaewjai/tiny-tsx#8291028984d4627329a74dab042a9d0b4e5d10be",
+    "@wirunekaewjai/ts": "github:wirunekaewjai/ts#64219e96305c70e85ce733fa7473c93fd2ac1293",
+    "tailwindcss": "^3.4.3"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "qrcode": "^1.5.3"
+  }
+}
