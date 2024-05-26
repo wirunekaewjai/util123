@@ -16,9 +16,7 @@ async fn main() -> std::io::Result<()> {
     HttpServer::new(move || {
         App::new()
             .service(routes::get_asset::handle)
-            .service(routes::get_base64_page::handle)
-            .service(routes::get_qrcode_page::handle)
-            .service(routes::get_sha_page::handle)
+            .service(routes::get_util_page::handle)
             .service(routes::get_home_page::handle)
             .service(routes::get_public::handle)
     })
