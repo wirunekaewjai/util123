@@ -621,6 +621,17 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "49f1f14873335454500d59611f1cf4a4b0f786f9ac11f4312a78e4cf2566695b"
 
 [[package]]
+name = "jetpack"
+version = "0.1.0"
+source = "git+https://github.com/wirunekaewjai/jetpack.git?rev=9bbe8e9b81cc8d31eaf0f54f7f84af7302e39d2d#9bbe8e9b81cc8d31eaf0f54f7f84af7302e39d2d"
+dependencies = [
+ "actix-files",
+ "actix-web",
+ "mime",
+ "sha2",
+]
+
+[[package]]
 name = "jobserver"
 version = "0.1.31"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1231,6 +1242,7 @@ dependencies = [
  "actix-files",
  "actix-web",
  "html-to-string-macro",
+ "jetpack",
  "mime",
  "serde",
  "serde_json",
