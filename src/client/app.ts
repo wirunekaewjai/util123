@@ -1,10 +1,10 @@
-import { hxGet } from "@wirunekaewjai/jetpack";
 import { copyText } from "@/client/functions/copy-text";
 import { sha } from "@/client/functions/sha";
 import { qrcode } from "@/client/views/qrcode";
+import { onHxGet } from "@wirunekaewjai/jetpack";
 import QRCode from "qrcode";
 
-hxGet(async (path, query) => {
+onHxGet(async (path, query) => {
   if (path === "/@qrcode") {
     try {
       const input = query.get("input")!;

@@ -623,7 +623,7 @@ checksum = "49f1f14873335454500d59611f1cf4a4b0f786f9ac11f4312a78e4cf2566695b"
 [[package]]
 name = "jetpack"
 version = "0.1.0"
-source = "git+https://github.com/wirunekaewjai/jetpack.git?rev=9bbe8e9b81cc8d31eaf0f54f7f84af7302e39d2d#9bbe8e9b81cc8d31eaf0f54f7f84af7302e39d2d"
+source = "git+https://github.com/wirunekaewjai/jetpack.git?rev=f67005e38d0fcb40dcddf4c8a63da6d87d6ef52d#f67005e38d0fcb40dcddf4c8a63da6d87d6ef52d"
 dependencies = [
  "actix-files",
  "actix-web",
