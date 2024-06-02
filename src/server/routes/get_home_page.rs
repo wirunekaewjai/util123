@@ -8,12 +8,12 @@ pub async fn handle(req: HttpRequest) -> HttpResponse {
     let items = vec![
         //
         views::topbar(),
-        views::heading("list", "Utilities"),
+        views::heading("fa-solid-list", "Utilities"),
         views::utility_list(vec![
             //
-            ("qrcode", "qrcode", "QR Code Generator"),
-            ("sha", "hashtag", "SHA Hash"),
-            ("base64", "codecompare", "Base64 Encode / Decode"),
+            ("qrcode", "fa-solid-qrcode", "QR Code Generator"),
+            ("sha", "fa-solid-hashtag", "SHA Hash"),
+            ("base64", "fa-solid-codecompare", "Base64 Encode / Decode"),
         ]),
     ];
 

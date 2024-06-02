@@ -3,12 +3,6 @@ let notyf: null | {
   error: (msg: string) => void;
 } = null;
 
-declare global {
-  interface Window {
-    Notyf: any;
-  }
-}
-
 export async function copyText(value: string) {
   if (!notyf) {
     notyf = new window.Notyf();

@@ -27,7 +27,7 @@ fn get_page(name: &str) -> Option<Vec<String>> {
         return Some(vec![
             //
             views::topbar(),
-            views::heading("codecompare", "Base64 Encode / Decode"),
+            views::heading("fa-solid-codecompare", "Base64 Encode / Decode"),
             pages::base64(),
         ]);
     }
@@ -36,7 +36,7 @@ fn get_page(name: &str) -> Option<Vec<String>> {
         return Some(vec![
             //
             views::topbar(),
-            views::heading("qrcode", "QR Code Generator"),
+            views::heading("fa-solid-qrcode", "QR Code Generator"),
             pages::qrcode(),
         ]);
     }
@@ -45,7 +45,7 @@ fn get_page(name: &str) -> Option<Vec<String>> {
         return Some(vec![
             //
             views::topbar(),
-            views::heading("hashtag", "SHA Hash"),
+            views::heading("fa-solid-hashtag", "SHA Hash"),
             pages::sha(),
         ]);
     }

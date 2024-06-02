@@ -17,8 +17,9 @@
   "devDependencies": {
     "@types/bun": "latest",
     "@types/qrcode": "^1.5.5",
-    "@wirunekaewjai/jetpack": "github:wirunekaewjai/jetpack#da900bb43a460d1b6072e0feabe39d2440b2e842",
+    "@wirunekaewjai/jetpack": "github:wirunekaewjai/jetpack#ab2401df8ee26c6f4abca6bf1f3aed9927046e10",
     "concurrently": "^8.2.2",
+    "htmx.org": "^1.9.12",
     "nodemon": "^3.1.2",
     "rimraf": "^5.0.7",
     "tailwindcss": "^3.4.3"

@@ -13,7 +13,7 @@ pub fn topbar() -> String {
                 class="hover:bg-white/20 rounded-full flex p-2 w-8 h-8"
                 href="/"
             >
-                {icon("house")}
+                {icon("fa-solid-house")}
             </a>
         </div>
     );
