@@ -11,8 +11,15 @@ pub async fn handle(req: HttpRequest, path: web::Path<String>) -> HttpResponse {
     };
 
     let html = views::doc("Utility 123", page);
+    let buffer = html.into_bytes();
 
-    return jetpack::create_etag_response(&req, &TEXT_HTML, html.into_bytes());
+    let mut builder = HttpResponse::Ok();
+
+    builder.content_type(TEXT_HTML);
+
+    jetpack::bind_etag_header(&mut builder, &req, &buffer);
+
+    return builder.body(buffer);
 }
 
 fn get_page(name: &str) -> Option<Vec<String>> {
