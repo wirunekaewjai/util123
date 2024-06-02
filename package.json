@@ -6,18 +6,18 @@
   "scripts": {
     "dev:css": "tailwindcss -i ./tailwind.css -o ./assets/style.css --watch",
     "dev:rs": "cargo watch -w src/server -x 'run'",
-    "dev:ts": "nodemon --watch src/client -e ts,tsx --exec 'bun build src/client/app.ts --outdir assets'",
+    "dev:ts": "nodemon --watch src/client -e ts,tsx --exec 'bun build src/client/app.ts --outdir assets --splitting'",
     "dev": "concurrently 'bun run dev:rs' 'bun run dev:ts' 'bun run dev:css'",
     "deploy": "bun run build && fly deploy",
     "build:css": "tailwindcss -i ./tailwind.css -o ./assets/style.css --minify",
-    "build:ts": "bun build src/client/app.ts --outdir assets --minify",
+    "build:ts": "bun build src/client/app.ts --outdir assets --minify --splitting",
     "build": "bun run build:css && bun run build:ts",
     "start": "cargo run --release"
   },
   "devDependencies": {
     "@types/bun": "latest",
     "@types/qrcode": "^1.5.5",
-    "@wirunekaewjai/jetpack": "github:wirunekaewjai/jetpack#f67005e38d0fcb40dcddf4c8a63da6d87d6ef52d",
+    "@wirunekaewjai/jetpack": "github:wirunekaewjai/jetpack#93e4fac8527b88a96f691428a19d8261da285f6d",
     "concurrently": "^8.2.2",
     "nodemon": "^3.1.2",
     "tailwindcss": "^3.4.3"

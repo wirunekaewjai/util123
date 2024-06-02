@@ -1,6 +1,6 @@
 use html_to_string_macro::html;
 
-use super::icons;
+use super::icon;
 
 pub fn topbar() -> String {
     return html!(
@@ -9,10 +9,11 @@ pub fn topbar() -> String {
             hx-boost="true"
         >
             <a
+                aria-label="go to home"
                 class="hover:bg-white/20 rounded-full flex p-2 w-8 h-8"
                 href="/"
             >
-                {icons::home()}
+                {icon("house")}
             </a>
         </div>
     );

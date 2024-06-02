@@ -2,12 +2,13 @@ import { copyText } from "@/client/functions/copy-text";
 import { sha } from "@/client/functions/sha";
 import { qrcode } from "@/client/views/qrcode";
 import { onHxGet } from "@wirunekaewjai/jetpack";
-import QRCode from "qrcode";
 
 onHxGet(async (path, query) => {
   if (path === "/@qrcode") {
     try {
       const input = query.get("input")!;
+
+      const QRCode = await import("qrcode");
       const output = await QRCode.toDataURL(input);
 
       return qrcode(output);

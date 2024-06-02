@@ -1,19 +1,19 @@
 use actix_web::{get, HttpRequest, HttpResponse};
 use mime::TEXT_HTML;
 
-use crate::views::{self, icons};
+use crate::views;
 
 #[get("/")]
 pub async fn handle(req: HttpRequest) -> HttpResponse {
     let items = vec![
         //
         views::topbar(),
-        views::heading(icons::list(), "Utilities"),
+        views::heading("list", "Utilities"),
         views::utility_list(vec![
             //
-            ("qrcode", icons::qrcode(), "QR Code Generator"),
-            ("sha", icons::hashtag(), "SHA Hash"),
-            ("base64", icons::codecompare(), "Base64 Encode / Decode"),
+            ("qrcode", "qrcode", "QR Code Generator"),
+            ("sha", "hashtag", "SHA Hash"),
+            ("base64", "codecompare", "Base64 Encode / Decode"),
         ]),
     ];
 

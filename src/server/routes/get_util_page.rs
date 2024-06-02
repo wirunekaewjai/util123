@@ -1,7 +1,7 @@
 use actix_web::{get, web, HttpRequest, HttpResponse};
 use mime::TEXT_HTML;
 
-use crate::views::{self, icons, pages};
+use crate::views::{self, pages};
 
 #[get("/utils/{name}")]
 pub async fn handle(req: HttpRequest, path: web::Path<String>) -> HttpResponse {
@@ -20,7 +20,7 @@ fn get_page(name: &str) -> Option<Vec<String>> {
         return Some(vec![
             //
             views::topbar(),
-            views::heading(icons::codecompare(), "Base64 Encode / Decode"),
+            views::heading("codecompare", "Base64 Encode / Decode"),
             pages::base64(),
         ]);
     }
@@ -29,7 +29,7 @@ fn get_page(name: &str) -> Option<Vec<String>> {
         return Some(vec![
             //
             views::topbar(),
-            views::heading(icons::qrcode(), "QR Code Generator"),
+            views::heading("qrcode", "QR Code Generator"),
             pages::qrcode(),
         ]);
     }
@@ -38,7 +38,7 @@ fn get_page(name: &str) -> Option<Vec<String>> {
         return Some(vec![
             //
             views::topbar(),
-            views::heading(icons::hashtag(), "SHA Hash"),
+            views::heading("hashtag", "SHA Hash"),
             pages::sha(),
         ]);
     }
