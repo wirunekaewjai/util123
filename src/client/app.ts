@@ -3,7 +3,8 @@ import "./prelude";
 import { copyText } from "@/client/functions/copy-text";
 import { sha } from "@/client/functions/sha";
 import { qrcode } from "@/client/views/qrcode";
-import { hxQuery, hxResponse } from "@wirunekaewjai/jetpack";
+import { parseHxQuery } from "@jetpack/functions/parse-hx-query";
+import { sendHxResponse } from "@jetpack/functions/send-hx-response";
 
 const onAfterSwap = (e: CustomEvent) => {
   const detail = e.detail as {
@@ -34,19 +35,19 @@ const onBeforeRequest = async (e: CustomEvent) => {
     e.preventDefault();
 
     try {
-      const query = hxQuery(search, conf.parameters) as {
+      const query = parseHxQuery(search, conf.parameters) as {
         input: string;
       };
 
       const QRCode = await import("qrcode");
       const output = await QRCode.toDataURL(query.input);
 
-      return hxResponse(xhr, {
+      return sendHxResponse(xhr, {
         body: qrcode(output),
         url: conf.path,
       });
     } catch {
-      return hxResponse(xhr, {
+      return sendHxResponse(xhr, {
         body: "",
         url: conf.path,
       });
@@ -56,7 +57,7 @@ const onBeforeRequest = async (e: CustomEvent) => {
   if (pathname === "/@sha") {
     e.preventDefault();
 
-    const query = hxQuery(search, conf.parameters) as {
+    const query = parseHxQuery(search, conf.parameters) as {
       id: string;
       type: 1 | 256 | 512;
     } & {
@@ -66,7 +67,7 @@ const onBeforeRequest = async (e: CustomEvent) => {
     const input = query[query.id];
     const type = query.type;
 
-    return hxResponse(xhr, {
+    return sendHxResponse(xhr, {
       body: await sha(type, input),
       url: conf.path,
     });
@@ -75,11 +76,11 @@ const onBeforeRequest = async (e: CustomEvent) => {
   if (pathname === "/@base64-encode") {
     e.preventDefault();
 
-    const query = hxQuery(search, conf.parameters) as {
+    const query = parseHxQuery(search, conf.parameters) as {
       input1: string;
     };
 
-    return hxResponse(xhr, {
+    return sendHxResponse(xhr, {
       body: btoa(query.input1),
       url: conf.path,
     });
@@ -88,11 +89,11 @@ const onBeforeRequest = async (e: CustomEvent) => {
   if (pathname === "/@base64-decode") {
     e.preventDefault();
 
-    const query = hxQuery(search, conf.parameters) as {
+    const query = parseHxQuery(search, conf.parameters) as {
       input2: string;
     };
 
-    return hxResponse(xhr, {
+    return sendHxResponse(xhr, {
       body: atob(query.input2),
       url: conf.path,
     });
@@ -101,7 +102,7 @@ const onBeforeRequest = async (e: CustomEvent) => {
   if (pathname === "/@copy") {
     e.preventDefault();
 
-    const query = hxQuery(search, conf.parameters) as {
+    const query = parseHxQuery(search, conf.parameters) as {
       id: string;
     };
 
@@ -109,7 +110,7 @@ const onBeforeRequest = async (e: CustomEvent) => {
     const txt = el?.textContent;
 
     if (!txt) {
-      return hxResponse(xhr, {
+      return sendHxResponse(xhr, {
         body: "",
         url: conf.path,
       });
@@ -117,7 +118,7 @@ const onBeforeRequest = async (e: CustomEvent) => {
 
     await copyText(txt);
 
-    return hxResponse(xhr, {
+    return sendHxResponse(xhr, {
       body: "",
       url: conf.path,
     });
