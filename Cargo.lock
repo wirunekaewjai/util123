@@ -623,7 +623,7 @@ checksum = "49f1f14873335454500d59611f1cf4a4b0f786f9ac11f4312a78e4cf2566695b"
 [[package]]
 name = "jetpack"
 version = "0.1.17"
-source = "git+https://github.com/wirunekaewjai/jetpack.git?rev=134fd5c1da5b3a0478f604883bf8b7aae0a1cc14#134fd5c1da5b3a0478f604883bf8b7aae0a1cc14"
+source = "git+https://github.com/wirunekaewjai/jetpack.git?rev=ddad0b3e4fc6fdf6651f6c8db72c86467b33aa70#ddad0b3e4fc6fdf6651f6c8db72c86467b33aa70"
 dependencies = [
  "actix-files",
  "actix-web",
@@ -1244,6 +1244,7 @@ dependencies = [
  "html-to-string-macro",
  "jetpack",
  "mime",
+ "regex",
  "serde",
  "serde_json",
  "sha2",

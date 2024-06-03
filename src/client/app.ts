@@ -1,7 +1,9 @@
+import "./prelude";
+
 import { copyText } from "@/client/functions/copy-text";
 import { sha } from "@/client/functions/sha";
 import { qrcode } from "@/client/views/qrcode";
-import { hxResponse } from "@wirunekaewjai/jetpack";
+import { hxQuery, hxResponse } from "@wirunekaewjai/jetpack";
 
 const onAfterSwap = (e: CustomEvent) => {
   const detail = e.detail as {
@@ -15,7 +17,7 @@ const onAfterSwap = (e: CustomEvent) => {
 
   // bind icon name in svg element for preserve svg
   if (pathname.startsWith("/icons/")) {
-    return detail.elt.setAttribute("name", pathname.split("/")[2]);
+    return detail.elt.setAttribute("name", pathname.split(".")[0].split("/")[2]);
   }
 };
 
@@ -28,17 +30,16 @@ const onBeforeRequest = async (e: CustomEvent) => {
 
   const [pathname, search] = conf.path.split("?");
 
-  const hxVals = conf.parameters;
-  const query = new URLSearchParams(search);
-
   if (pathname === "/@qrcode") {
     e.preventDefault();
 
     try {
-      const input = query.get("input") ?? hxVals.input;
+      const query = hxQuery(search, conf.parameters) as {
+        input: string;
+      };
 
       const QRCode = await import("qrcode");
-      const output = await QRCode.toDataURL(input);
+      const output = await QRCode.toDataURL(query.input);
 
       return hxResponse(xhr, {
         body: qrcode(output),
@@ -55,9 +56,15 @@ const onBeforeRequest = async (e: CustomEvent) => {
   if (pathname === "/@sha") {
     e.preventDefault();
 
-    const id = query.get("id") ?? hxVals.id;
-    const input = query.get(id) ?? hxVals[id];
-    const type = Number(query.get("type") ?? hxVals.type) as 1 | 256 | 512;
+    const query = hxQuery(search, conf.parameters) as {
+      id: string;
+      type: 1 | 256 | 512;
+    } & {
+      [key: string]: string;
+    };
+
+    const input = query[query.id];
+    const type = query.type;
 
     return hxResponse(xhr, {
       body: await sha(type, input),
@@ -68,10 +75,12 @@ const onBeforeRequest = async (e: CustomEvent) => {
   if (pathname === "/@base64-encode") {
     e.preventDefault();
 
-    const input = query.get("input1") ?? hxVals.input1;
+    const query = hxQuery(search, conf.parameters) as {
+      input1: string;
+    };
 
     return hxResponse(xhr, {
-      body: btoa(input),
+      body: btoa(query.input1),
       url: conf.path,
     });
   }
@@ -79,10 +88,12 @@ const onBeforeRequest = async (e: CustomEvent) => {
   if (pathname === "/@base64-decode") {
     e.preventDefault();
 
-    const input = query.get("input2") ?? hxVals.input2;
+    const query = hxQuery(search, conf.parameters) as {
+      input2: string;
+    };
 
     return hxResponse(xhr, {
-      body: atob(input),
+      body: atob(query.input2),
       url: conf.path,
     });
   }
@@ -90,8 +101,11 @@ const onBeforeRequest = async (e: CustomEvent) => {
   if (pathname === "/@copy") {
     e.preventDefault();
 
-    const id = query.get("id") ?? hxVals.id;
-    const el = document.getElementById(id);
+    const query = hxQuery(search, conf.parameters) as {
+      id: string;
+    };
+
+    const el = document.getElementById(query.id);
     const txt = el?.textContent;
 
     if (!txt) {

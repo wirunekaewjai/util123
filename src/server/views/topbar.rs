@@ -1,8 +1,9 @@
 use html_to_string_macro::html;
+use serde_json::Value;
 
 use super::icon;
 
-pub fn topbar() -> String {
+pub fn topbar(map: &Value) -> String {
     return html!(
         <div
             class="bg-black text-white grid grid-cols-[32px_auto] gap-x-4 p-2 items-center [&_svg]:fill-current"
@@ -13,7 +14,7 @@ pub fn topbar() -> String {
                 class="hover:bg-white/20 rounded-full flex p-2 w-8 h-8"
                 href="/"
             >
-                {icon("fa-solid-house")}
+                {icon(map, "fa-solid-house")}
             </a>
         </div>
     );

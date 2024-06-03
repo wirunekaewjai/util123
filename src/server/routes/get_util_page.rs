@@ -5,17 +5,25 @@ use actix_web::{
 };
 use jetpack::http::{create_etag, get_is_etag_not_modified};
 use mime::TEXT_HTML;
+use serde_json::Value;
 
-use crate::views::{self, pages};
+use crate::{
+    structs::AppState,
+    views::{self, pages},
+};
 
 #[get("/utils/{name}")]
-pub async fn handle(req: HttpRequest, path: web::Path<String>) -> HttpResponse {
+pub async fn handle(
+    req: HttpRequest,
+    state: web::Data<AppState>,
+    path: web::Path<String>,
+) -> HttpResponse {
     let name = path.into_inner();
-    let Some(page) = get_page(&name) else {
+    let Some(page) = get_page(&state.hashmap, &name) else {
         return HttpResponse::NotFound().finish();
     };
 
-    let html = views::doc("Utility 123", page);
+    let html = views::doc(&state.hashmap, "Utility 123", page);
     let buffer = html.into_bytes();
 
     let headers = req.headers();
@@ -37,12 +45,12 @@ pub async fn handle(req: HttpRequest, path: web::Path<String>) -> HttpResponse {
     return builder.body(buffer);
 }
 
-fn get_page(name: &str) -> Option<Vec<String>> {
+fn get_page(map: &Value, name: &str) -> Option<Vec<String>> {
     if name == "base64" {
         return Some(vec![
             //
-            views::topbar(),
-            views::heading("fa-solid-codecompare", "Base64 Encode / Decode"),
+            views::topbar(map),
+            views::heading(map, "fa-solid-codecompare", "Base64 Encode / Decode"),
             pages::base64(),
         ]);
     }
@@ -50,8 +58,8 @@ fn get_page(name: &str) -> Option<Vec<String>> {
     if name == "qrcode" {
         return Some(vec![
             //
-            views::topbar(),
-            views::heading("fa-solid-qrcode", "QR Code Generator"),
+            views::topbar(map),
+            views::heading(map, "fa-solid-qrcode", "QR Code Generator"),
             pages::qrcode(),
         ]);
     }
@@ -59,8 +67,8 @@ fn get_page(name: &str) -> Option<Vec<String>> {
     if name == "sha" {
         return Some(vec![
             //
-            views::topbar(),
-            views::heading("fa-solid-hashtag", "SHA Hash"),
+            views::topbar(map),
+            views::heading(map, "fa-solid-hashtag", "SHA Hash"),
             pages::sha(),
         ]);
     }
