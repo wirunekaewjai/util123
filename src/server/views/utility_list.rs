@@ -1,4 +1,5 @@
 use html_to_string_macro::html;
+use jetpack::functions::html::map_children;
 use serde_json::Value;
 
 use super::icon;
@@ -10,7 +11,7 @@ pub fn utility_list(map: &Value, items: Vec<(&str, &str, &str)>) -> String {
             hx-boost="true"
         >
             {
-                jetpack::html::map_children(&items, &|(id, icon_name, name)| html!(
+                map_children(&items, &|(id, icon_name, name)| html!(
                     <a
                         class="hover:text-blue-400 grid grid-cols-[16px_1fr] gap-x-4 px-4 py-2 items-center"
                         href={format!("/utils/{id}")}
