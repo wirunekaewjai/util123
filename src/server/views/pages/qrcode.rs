@@ -13,7 +13,7 @@ pub fn qrcode() -> String {
                     placeholder="Enter URL / Text / Message"
                     rows={3}
                     hx-get="/@qrcode"
-                    hx-trigger="input changed delay:500ms"
+                    hx-trigger="load, input changed delay:500ms"
                     hx-target="#qrcode"
                     hx-swap="innerHTML"
                 />

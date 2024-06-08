@@ -7,7 +7,7 @@
     "moduleDetection": "force",
     "allowJs": true,
     "jsx": "react-jsx",
-    "jsxImportSource": "@jetpack/jsx",
+    "jsxImportSource": "@jsx",
 
     // Bundler mode
     "moduleResolution": "bundler",
@@ -27,17 +27,17 @@
 
     "baseUrl": ".",
     "paths": {
-      "@jetpack/*": [
-        "./jetpack/typescript/*"
+      "@jsx/*": [
+        "./@jsx/*"
       ],
       "@/*": [
-        "./src/*"
+        "./src/client/*"
       ]
     }
   },
   "include": [
-    "./bin/**/*",
-    "./jetpack/typescript/**/*",
-    "./src/**/*"
+    "./@bin/**/*",
+    "./@jsx/**/*",
+    "./src/client/**/*"
   ]
 }

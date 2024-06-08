@@ -4,11 +4,14 @@ pub mod structs;
 pub mod views;
 
 use actix_web::{web, App, HttpServer};
-use functions::get_asset_hashmap;
+use dotenv::dotenv;
+use functions::get_asset_map;
 use structs::AppState;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
+    dotenv().ok();
+
     let hostname = "0.0.0.0";
     let port = 8080;
 
@@ -17,8 +20,8 @@ async fn main() -> std::io::Result<()> {
     println!();
 
     HttpServer::new(move || {
-        let hashmap = get_asset_hashmap();
-        let app_state = AppState { hashmap };
+        let asset_map = get_asset_map();
+        let app_state = AppState { asset_map };
 
         App::new()
             .app_data(web::Data::new(app_state))

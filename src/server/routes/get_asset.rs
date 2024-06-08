@@ -8,40 +8,53 @@ use actix_web::{
     },
     web, HttpRequest, HttpResponse,
 };
-use jetpack::functions::http::{create_etag, get_file_mime, get_is_etag_not_modified};
-use serde::Deserialize;
 
-use crate::{functions::get_is_same_asset_hash, structs::AppState};
-
-#[derive(Deserialize)]
-pub struct Query {
-    pub hash: Option<String>,
-}
+use crate::{
+    functions::{create_etag, get_file_mime, get_is_etag_not_modified},
+    structs::AppState,
+};
 
 #[get("/{filename:.*}")]
 pub async fn handle(
     req: HttpRequest,
     state: web::Data<AppState>,
     path: web::Path<String>,
-    query: web::Query<Query>,
 ) -> HttpResponse {
-    let req_path = req.path();
-    let mut file_path = path.into_inner();
+    let file_name = path.into_inner();
+    let route_path = req.path();
 
-    if !file_path.starts_with("assets/") {
-        file_path = format!("public/{file_path}");
+    let mut file_path: String = state.asset_map[route_path]
+        .as_str()
+        .unwrap_or_default()
+        .into();
+
+    let mut is_static = true;
+
+    if file_path.starts_with("/assets/") {
+        file_path = format!("./.cache/{}", file_name);
+    } else if file_path.starts_with("/") {
+        file_path = format!("./public/{}", file_name);
+        is_static = false;
+    }
+
+    if file_path.is_empty() {
+        return HttpResponse::NotFound().finish();
     }
 
     let Ok(buffer) = read(&file_path) else {
         return HttpResponse::NotFound().finish();
     };
 
+    if cfg!(debug_assertions) {
+        println!("asset: {}", file_path);
+    }
+
     let mime = get_file_mime(&file_path);
     let mut builder = HttpResponse::Ok();
 
     builder.content_type(mime);
 
-    if get_is_same_asset_hash(&state.hashmap, req_path, &query.hash) {
+    if is_static {
         builder.insert_header(CacheControl(vec![
             CacheDirective::Public,
             CacheDirective::MaxAge(31_536_000),
@@ -57,7 +70,7 @@ pub async fn handle(
         builder.insert_header((ETAG, etag));
         builder.insert_header(CacheControl(vec![
             CacheDirective::Public,
-            CacheDirective::MaxAge(0),
+            CacheDirective::MaxAge(5),
             CacheDirective::MustRevalidate,
         ]));
     }

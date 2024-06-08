@@ -13,7 +13,7 @@ pub fn base64() -> String {
                     placeholder="Input"
                     rows={3}
                     hx-get="/@base64-encode"
-                    hx-trigger="input changed delay:50ms"
+                    hx-trigger="load, input changed delay:50ms"
                     hx-target="#output1"
                     hx-swap="innerHTML"
                 >
@@ -41,7 +41,7 @@ pub fn base64() -> String {
                     placeholder="Input"
                     rows={3}
                     hx-get="/@base64-decode"
-                    hx-trigger="input changed delay:50ms"
+                    hx-trigger="load, input changed delay:50ms"
                     hx-target="#output2"
                     hx-swap="innerHTML"
                 />
