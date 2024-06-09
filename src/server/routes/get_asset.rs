@@ -15,26 +15,20 @@ use crate::{
 };
 
 #[get("/{filename:.*}")]
-pub async fn handle(
-    req: HttpRequest,
-    state: web::Data<AppState>,
-    path: web::Path<String>,
-) -> HttpResponse {
-    let file_name = path.into_inner();
+pub async fn handle(req: HttpRequest, state: web::Data<AppState>) -> HttpResponse {
     let route_path = req.path();
 
-    let mut file_path: String = state.asset_map[route_path]
+    let mut is_static = true;
+    let mut file_path = state.asset_map[route_path]
         .as_str()
         .unwrap_or_default()
-        .into();
-
-    let mut is_static = false;
+        .to_string();
 
     if file_path.starts_with("/assets/") {
-        file_path = format!("./.cache/{}", file_name);
-        is_static = true;
+        file_path = format!("./.cache{}", route_path);
     } else if file_path.starts_with("/") {
-        file_path = format!("./public/{}", file_name);
+        file_path = format!("./public{}", route_path);
+        is_static = false;
     }
 
     if file_path.is_empty() {
@@ -46,7 +40,11 @@ pub async fn handle(
     };
 
     if cfg!(debug_assertions) {
-        println!("asset: {}", file_path);
+        if is_static {
+            println!("asset static: {}", file_path);
+        } else {
+            println!("asset: {}", file_path);
+        }
     }
 
     let mime = get_file_mime(&file_path);
