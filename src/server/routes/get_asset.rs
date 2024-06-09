@@ -28,13 +28,13 @@ pub async fn handle(
         .unwrap_or_default()
         .into();
 
-    let mut is_static = true;
+    let mut is_static = false;
 
     if file_path.starts_with("/assets/") {
         file_path = format!("./.cache/{}", file_name);
+        is_static = true;
     } else if file_path.starts_with("/") {
         file_path = format!("./public/{}", file_name);
-        is_static = false;
     }
 
     if file_path.is_empty() {

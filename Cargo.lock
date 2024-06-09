@@ -1239,7 +1239,6 @@ dependencies = [
  "dotenv",
  "html-to-string-macro",
  "mime",
- "regex",
  "serde",
  "serde_json",
  "sha2",
