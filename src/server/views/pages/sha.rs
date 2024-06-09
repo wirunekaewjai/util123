@@ -3,81 +3,87 @@ use html_to_string_macro::html;
 pub fn sha() -> String {
     return html!(
           <div>
-            <div class="p-4 space-y-2">
+            <div
+                class="p-4 space-y-2"
+                x-data="{ input: '', output: '' }"
+                x-init="
+                $watch('input', async (value) => { output = await window.createSHA(1, value); });
+                input = $refs.sha1_input.value;
+                "
+            >
                 <h3 class="font-medium">
                     {"# SHA-1"}
                 </h3>
                 <textarea
                     class="border p-2 w-full"
-                    name="input1"
                     placeholder="Input"
                     rows={3}
-                    hx-get="/@sha?type=1&id=input1"
-                    hx-trigger="load, input changed delay:50ms"
-                    hx-target="#output1"
-                    hx-swap="innerHTML"
+                    x-ref="sha1_input"
+                    x-model="input"
                 />
                 <textarea
                     class="border p-2 w-full"
-                    id="output1"
                     placeholder="Output"
                     readonly=""
                     rows={3}
-                    hx-get="/@copy?id=output1"
-                    hx-trigger="click"
-                    hx-swap="beforeend"
+                    x-bind:value="output"
+                    x-on:click="await window.copyText(output)"
                 />
             </div>
             <hr />
-            <div class="p-4 space-y-2">
+            <div
+                class="p-4 space-y-2"
+                x-data="{ input: '', output: '' }"
+                x-init="
+                $watch('input', async (value) => { output = await window.createSHA(256, value); });
+                input = $refs.sha256_input.value;
+                "
+            >
                 <h3 class="font-medium">
                     {"# SHA-256"}
                 </h3>
                 <textarea
                     class="border p-2 w-full"
-                    name="input2"
                     placeholder="Input"
                     rows={3}
-                    hx-get="/@sha?type=256&id=input2"
-                    hx-trigger="load, input changed delay:50ms"
-                    hx-target="#output2"
-                    hx-swap="innerHTML"
+                    x-ref="sha256_input"
+                    x-model="input"
                 />
                 <textarea
                     class="border p-2 w-full"
-                    id="output2"
                     placeholder="Output"
                     readonly=""
                     rows={3}
-                    hx-get="/@copy?id=output2"
-                    hx-trigger="click"
-                    hx-swap="beforeend"
+                    x-bind:value="output"
+                    x-on:click="await window.copyText(output)"
                 />
             </div>
             <hr />
-            <div class="p-4 space-y-2">
+            <div
+                class="p-4 space-y-2"
+                x-data="{ input: '', output: '' }"
+                x-init="
+                $watch('input', async (value) => { output = await window.createSHA(512, value); });
+                input = $refs.sha512_input.value;
+                "
+            >
                 <h3 class="font-medium">
                     {"# SHA-512"}
                 </h3>
                 <textarea
                     class="border p-2 w-full"
-                    name="input3"
                     placeholder="Input"
                     rows={3}
-                    hx-get="/@sha?type=512&id=input3"
-                    hx-trigger="load, input changed delay:50ms"
-                    hx-target="#output3"
-                    hx-swap="innerHTML"
+                    x-ref="sha512_input"
+                    x-model="input"
                 />
                 <textarea
                     class="border p-2 w-full"
-                    id="output3"
                     placeholder="Output"
                     readonly=""
                     rows={3}
-                    hx-get="/@copy?id=output3"
-                    hx-trigger="click"
-                    hx-swap="beforeend"
+                    x-bind:value="output"
+                    x-on:click="await window.copyText(output)"
                 />
             </div>
         </div>

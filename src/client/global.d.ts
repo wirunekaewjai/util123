@@ -1,5 +1,5 @@
-import type HTMX from "htmx.org";
-
 export declare global {
-  var htmx: typeof HTMX;
+  var createQRCode: (input: string) => Promise<string>;
+  var createSHA: (type: 1 | 256 | 512, input: string) => Promise<string>;
+  var copyText: (value: string) => Promise<void>;
 }

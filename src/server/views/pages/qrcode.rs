@@ -2,20 +2,26 @@ use html_to_string_macro::html;
 
 pub fn qrcode() -> String {
     return html!(
-        <div>
-            <div class="p-4 space-y-2">
+        <div
+            x-data="{ qrcode: '' }"
+        >
+            <div
+                class="p-4 space-y-2"
+                x-data="{ input: '' }"
+                x-init="
+                $watch('input', async (value) => { qrcode = await window.createQRCode(value); });
+                input = $refs.qrcode_input.value;
+                "
+            >
                 <h3 class="font-medium">
                     {"# Input"}
                 </h3>
                 <textarea
                     class="border p-2 w-full"
-                    name="input"
                     placeholder="Enter URL / Text / Message"
                     rows={3}
-                    hx-get="/@qrcode"
-                    hx-trigger="load, input changed delay:500ms"
-                    hx-target="#qrcode"
-                    hx-swap="innerHTML"
+                    x-ref="qrcode_input"
+                    x-model="input"
                 />
             </div>
             <hr />
@@ -26,7 +32,14 @@ pub fn qrcode() -> String {
                 <div
                     class="w-40 h-40 border rounded-sm flex"
                     id="qrcode"
-                />
+                >
+                    <img
+                        alt="qrcode"
+                        class="w-full h-full hidden"
+                        x-bind:class="{ '!block': !!qrcode }"
+                        x-bind:src="qrcode"
+                    />
+                </div>
             </div>
         </div>
     );
