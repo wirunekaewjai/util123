@@ -143,7 +143,7 @@ function componentCopy(element: HTMLElement) {
 document.addEventListener("DOMContentLoaded", () => {
   const componentAttributeKey = "x-component";
   const componentAttributeSelector = `[${componentAttributeKey}]`;
-  const componentControllerMaps = new Map<string, (element: HTMLElement) => (() => void)>([
+  const componentMaps = new Map<string, (element: HTMLElement) => (() => void)>([
     ["qrcode", componentQRCode],
     ["sha1", componentSHA1],
     ["sha256", componentSHA256],
@@ -158,7 +158,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const add = (element: HTMLElement) => {
     const name = element.getAttribute(componentAttributeKey)!;
-    const component = componentControllerMaps.get(name);
+    const component = componentMaps.get(name);
 
     if (!component) {
       // console.debug("what is", name, "?");
