@@ -20,9 +20,7 @@ pub fn doc(asset_map: &Value, title: &str, children: Vec<String>) -> String {
 
                     <title>{title}</title>
 
-                    <script defer src="https://unpkg.com/htmx.org@2.0.0-beta1/dist/htmx.min.js"></script>
                     <script defer src={get_asset_path(asset_map, "/assets/app.js")} type="module"></script>
-                    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.0/dist/cdn.min.js"></script>
                     <script defer src={format!("https://kit.fontawesome.com/{fa_kit_id}.js")} crossorigin="anonymous"></script>
                 </head>
                 <body>

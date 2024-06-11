@@ -5,11 +5,7 @@ pub fn base64() -> String {
         <div>
             <div
                 class="p-4 space-y-2"
-                x-data="{ input: '', output: '' }"
-                x-init="
-                $watch('input', (value) => { output = btoa(value); });
-                input = $refs.b64e_input.value;
-                "
+                x-component="base64-encode"
             >
                 <h3 class="font-medium">
                     {"# Base 64 Encode"}
@@ -18,28 +14,19 @@ pub fn base64() -> String {
                     class="border p-2 w-full"
                     placeholder="Input"
                     rows={3}
-                    x-ref="b64e_input"
-                    x-model="input"
-                >
-                </textarea>
+                />
                 <textarea
                     class="border p-2 w-full"
                     placeholder="Output"
                     readonly=""
                     rows={3}
-                    x-bind:value="output"
-                    x-on:click="await window.copyText(output)"
-                >
-                </textarea>
+                    x-component="copy"
+                />
             </div>
             <hr />
             <div
                 class="p-4 space-y-2"
-                x-data="{ input: '', output: '' }"
-                x-init="
-                $watch('input', (value) => { output = atob(value); });
-                input = $refs.b64d_input.value;
-                "
+                x-component="base64-decode"
             >
                 <h3 class="font-medium">
                     {"# Base 64 Decode"}
@@ -48,16 +35,13 @@ pub fn base64() -> String {
                     class="border p-2 w-full"
                     placeholder="Input"
                     rows={3}
-                    x-ref="b64d_input"
-                    x-model="input"
                 />
                 <textarea
                     class="border p-2 w-full"
                     placeholder="Output"
                     readonly=""
                     rows={3}
-                    x-bind:value="output"
-                    x-on:click="await window.copyText(output)"
+                    x-component="copy"
                 />
             </div>
         </div>
