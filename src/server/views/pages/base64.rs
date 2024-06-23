@@ -5,7 +5,8 @@ pub fn base64() -> String {
         <div>
             <div
                 class="p-4 space-y-2"
-                x-component="base64-encode"
+                x-component="base64"
+                x-function="btoa"
             >
                 <h3 class="font-medium">
                     {"# Base 64 Encode"}
@@ -26,7 +27,8 @@ pub fn base64() -> String {
             <hr />
             <div
                 class="p-4 space-y-2"
-                x-component="base64-decode"
+                x-component="base64"
+                x-function="atob"
             >
                 <h3 class="font-medium">
                     {"# Base 64 Decode"}

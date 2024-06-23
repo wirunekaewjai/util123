@@ -1,3 +1,5 @@
-pub mod get_asset;
-pub mod get_home_page;
-pub mod get_util_page;
+pub mod api;
+pub mod asset;
+pub mod home;
+pub mod public;
+pub mod util;

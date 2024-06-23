@@ -1,9 +1,9 @@
 use actix_web::{get, web, HttpRequest, HttpResponse};
 
-use crate::{functions::send_html_response, structs::AppState, views};
+use crate::{functions, structs, views};
 
 #[get("/")]
-pub async fn handle(req: HttpRequest, state: web::Data<AppState>) -> HttpResponse {
+pub async fn handle(req: HttpRequest, state: web::Data<structs::AppState>) -> HttpResponse {
     let items = vec![
         //
         views::topbar(),
@@ -20,5 +20,5 @@ pub async fn handle(req: HttpRequest, state: web::Data<AppState>) -> HttpRespons
     ];
 
     let html = views::doc(&state.asset_map, "Utility 123", items);
-    return send_html_response(&req, &html);
+    return functions::send_html_response(&req, &html);
 }

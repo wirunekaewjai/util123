@@ -11,6 +11,14 @@ await rm("assets", {
   recursive: true,
 });
 
+const tsEntryPoints = [
+  "./src/client/app.ts",
+];
+
 await $`tailwindcss -i ./tailwind.css -o ./.cache/assets/style.css --minify`;
-await $`bun build ./src/client/app.ts --outdir ./.cache/assets --minify --splitting --chunk-naming chunk-[hash].[ext]`;
+
+for (const entryPoint of tsEntryPoints) {
+  await $`bun build ${entryPoint} --outdir ./.cache/assets --minify --splitting --chunk-naming chunk-[hash].[ext]`;
+}
+
 await $`bun ./@bin/build-assets.ts --minify`;

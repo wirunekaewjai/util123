@@ -5,7 +5,8 @@ pub fn sha() -> String {
           <div>
             <div
                 class="p-4 space-y-2"
-                x-component="sha1"
+                x-component="sha"
+                x-type="1"
             >
                 <h3 class="font-medium">
                     {"# SHA-1"}
@@ -26,7 +27,8 @@ pub fn sha() -> String {
             <hr />
             <div
                 class="p-4 space-y-2"
-                x-component="sha256"
+                x-component="sha"
+                x-type="256"
             >
                 <h3 class="font-medium">
                     {"# SHA-256"}
@@ -47,7 +49,8 @@ pub fn sha() -> String {
             <hr />
             <div
                 class="p-4 space-y-2"
-                x-component="sha512"
+                x-component="sha"
+                x-type="512"
             >
                 <h3 class="font-medium">
                     {"# SHA-512"}

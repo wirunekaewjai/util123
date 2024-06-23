@@ -12,6 +12,7 @@ path = "src/server/main.rs"
 [dependencies]
 actix-files = "0.6.5"
 actix-web = "4.5.1"
+chrono = "0.4.38"
 dotenv = "0.15.0"
 html-to-string-macro = "0.2.5"
 mime = "0.3.17"
