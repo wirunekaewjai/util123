@@ -10,6 +10,7 @@ pub fn topbar() -> String {
                 aria-label="go to home"
                 class="hover:bg-white/20 rounded-full flex p-2 w-8 h-8"
                 href="/"
+                x-component="link"
             >
                 <i class="fa-solid fa-house"></i>
             </a>

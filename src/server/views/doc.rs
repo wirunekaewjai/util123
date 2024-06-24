@@ -25,7 +25,10 @@ pub fn doc(asset_map: &Value, title: &str, children: Vec<String>) -> String {
 
                     {super::debug_scripts(asset_map)}
                 </head>
-                <body>
+                <body
+                    x-component="router"
+                    x-index={0}
+                >
                     {children.join("")}
                 </body>
             </html>

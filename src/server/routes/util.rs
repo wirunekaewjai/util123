@@ -1,4 +1,5 @@
 use actix_web::{get, web, HttpRequest, HttpResponse};
+use html_to_string_macro::html;
 
 use crate::{functions, structs, views};
 
@@ -13,8 +14,18 @@ pub async fn handle(
         return HttpResponse::NotFound().finish();
     };
 
+    if functions::get_is_fragment_rendering(&req) {
+        let html = html!(
+            <body>
+                {page.join("")}
+            </body>
+        );
+
+        return functions::send_html_response(&req, &html);
+    }
+
     let html = views::doc(&state.asset_map, "Utility 123", page);
-    return functions::send_html_response(&req, &html);
+    functions::send_html_response(&req, &html)
 }
 
 fn get_page(name: &str) -> Option<Vec<String>> {

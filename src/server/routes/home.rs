@@ -1,4 +1,5 @@
 use actix_web::{get, web, HttpRequest, HttpResponse};
+use html_to_string_macro::html;
 
 use crate::{functions, structs, views};
 
@@ -18,6 +19,16 @@ pub async fn handle(req: HttpRequest, state: web::Data<structs::AppState>) -> Ht
             ],
         ),
     ];
+
+    if functions::get_is_fragment_rendering(&req) {
+        let html = html!(
+            <body>
+                {items.join("")}
+            </body>
+        );
+
+        return functions::send_html_response(&req, &html);
+    }
 
     let html = views::doc(&state.asset_map, "Utility 123", items);
     return functions::send_html_response(&req, &html);

@@ -1,4 +1,6 @@
 import { Base64 } from "@/components/base64";
+import { Link } from "@/components/common/link";
+import { Router } from "@/components/common/router";
 import { Copy } from "@/components/copy";
 import { QRCode } from "@/components/qrcode";
 import { Sha } from "@/components/sha";
@@ -7,6 +9,11 @@ import { registerComponents } from "@/functions/common/register-components";
 
 addEventListener(document, "DOMContentLoaded", () => {
   registerComponents(
+    /* common */
+    Link,
+    Router,
+
+    /* */
     Base64,
     Copy,
     QRCode,
