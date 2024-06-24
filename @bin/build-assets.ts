@@ -15,23 +15,26 @@ const assetsGlob = new Glob("./.cache/assets/**/*").scanSync({
 const map: Record<string, string> = {};
 
 for (const file of assetsGlob) {
-  const data = await Bun.file(file).arrayBuffer();
-  const hash = Bun.hash.wyhash(data).toString(16);
-
-  // map["/" + file.split(".cache/")[1]] = hash;
-
   const filePath = file.split(".cache/")[1];
   const pathObject = path.parse(filePath);
 
   const base = pathObject.name;
-  const ext = pathObject.ext;
-  const name = `${base}.${hash}${ext}`;
-
-  const routePath = `/${pathObject.dir}/${name}`.replaceAll("//", "/");
   const routeKey = `/${filePath}`;
 
-  map[routePath] = file;
-  map[routeKey] = routePath;
+  if (base.startsWith("chunk-")) {
+    map[routeKey] = file;
+  } else {
+    const data = await Bun.file(file).arrayBuffer();
+    const hash = Bun.hash.wyhash(data).toString(16);
+
+    const ext = pathObject.ext;
+    const name = `${base}.${hash}${ext}`;
+
+    const routePath = `/${pathObject.dir}/${name}`.replaceAll("//", "/");
+
+    map[routePath] = file;
+    map[routeKey] = routePath;
+  }
 }
 
 // for (const file of publicGlob) {

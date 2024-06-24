@@ -14,7 +14,7 @@ use crate::functions;
 #[get("/{filename:.*}")]
 pub async fn handle(req: HttpRequest) -> HttpResponse {
     let route_path = req.path();
-    let file_path = format!("./public{}", route_path);
+    let file_path = format!("./public{route_path}");
 
     let Ok(buffer) = read(&file_path) else {
         return HttpResponse::NotFound().finish();

@@ -11,15 +11,10 @@ use crate::{functions, structs};
 #[get("/assets/{filename:.*}")]
 pub async fn handle(req: HttpRequest, state: web::Data<structs::AppState>) -> HttpResponse {
     let route_path = req.path();
-    let mut file_path = state.asset_map[route_path]
+    let file_path = state.asset_map[route_path]
         .as_str()
         .unwrap_or_default()
         .to_string();
-
-    // chunk-...
-    if file_path.starts_with("/assets/") {
-        file_path = format!("./.cache{}", route_path);
-    }
 
     if file_path.is_empty() {
         return HttpResponse::NotFound().finish();

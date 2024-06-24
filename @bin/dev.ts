@@ -11,14 +11,11 @@ await rm("assets", {
   recursive: true,
 });
 
-const tsEntryPoints = [
-  "./src/client/app.ts",
-  "./src/client/auto-reload.ts",
+const scripts = [
+  "bun ./@bin/build-styles.ts",
+  "bun ./@bin/build-scripts.ts",
+  "bun ./@bin/build-assets.ts",
+  "cargo run",
 ];
 
-const style = "tailwindcss -i ./tailwind.css -o ./.cache/assets/style.css";
-const scripts = `bun build ${tsEntryPoints.join(" ")} --outdir ./.cache/assets --splitting --chunk-naming chunk-[hash].[ext]`;
-const assets = "bun ./@bin/build-assets.ts";
-const rs = "cargo run";
-
-await $`cargo watch -s '${style} && ${scripts} && ${assets} && ${rs}'`;
+await $`cargo watch -s '${scripts.join(" && ")}'`;
