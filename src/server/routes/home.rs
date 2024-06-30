@@ -16,6 +16,7 @@ pub async fn handle(req: HttpRequest, state: web::Data<structs::AppState>) -> Ht
                 ("qrcode", "fa-qrcode", "QR Code Generator"),
                 ("sha", "fa-hashtag", "SHA Hash"),
                 ("base64", "fa-code-compare", "Base64 Encode / Decode"),
+                ("gzip", "fa-file-zipper", "Gzip Compress / Decompress"),
             ],
         ),
     ];

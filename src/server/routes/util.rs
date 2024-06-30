@@ -38,6 +38,15 @@ fn get_page(name: &str) -> Option<Vec<String>> {
         ]);
     }
 
+    if name == "gzip" {
+        return Some(vec![
+            //
+            views::topbar(),
+            views::heading("fa-file-zipper", "Gzip Compress / Decompress"),
+            views::pages::gzip(),
+        ]);
+    }
+
     if name == "qrcode" {
         return Some(vec![
             //
