@@ -28,7 +28,7 @@ pub async fn handle(req: HttpRequest, state: web::Data<structs::AppState>) -> Ht
             </body>
         );
 
-        return functions::send_html_response(&req, &html);
+        return functions::send_html_fragment_response(&html);
     }
 
     let html = views::doc(&state.asset_map, "Utility 123", items);

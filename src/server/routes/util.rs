@@ -21,7 +21,7 @@ pub async fn handle(
             </body>
         );
 
-        return functions::send_html_response(&req, &html);
+        return functions::send_html_fragment_response(&html);
     }
 
     let html = views::doc(&state.asset_map, "Utility 123", page);

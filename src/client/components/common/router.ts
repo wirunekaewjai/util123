@@ -29,6 +29,7 @@ export const Router = createComponent("router", (router: HTMLElement) => {
       headers: {
         "X-Fragment": "1",
       },
+      cache: "reload",
     });
 
     const html = await res.text();

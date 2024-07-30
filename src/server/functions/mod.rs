@@ -8,6 +8,7 @@ mod get_is_etag_not_modified;
 mod get_is_fragment_rendering;
 mod get_request_header_string_value;
 mod map_children;
+mod send_html_fragment_response;
 mod send_html_response;
 
 pub use create_etag::*;
@@ -20,4 +21,5 @@ pub use get_is_etag_not_modified::*;
 pub use get_is_fragment_rendering::*;
 pub use get_request_header_string_value::*;
 pub use map_children::*;
+pub use send_html_fragment_response::*;
 pub use send_html_response::*;

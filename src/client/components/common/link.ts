@@ -7,11 +7,14 @@ import { removeEventListener } from "@/functions/common/remove-event-listener";
 
 export const Link = createComponent("link", (a: HTMLAnchorElement) => {
   const onClick = async (e: Event) => {
-    e.preventDefault();
+    const url = new URL(a.href);
 
-    pushState(a.href);
+    if (url.origin === window.location.origin) {
+      e.preventDefault();
 
-    dispatchEvent(EVENT_LOCATION_CHANGE);
+      pushState(url.pathname + url.search);
+      dispatchEvent(EVENT_LOCATION_CHANGE);
+    }
   };
 
   addEventListener(a, "click", onClick);
